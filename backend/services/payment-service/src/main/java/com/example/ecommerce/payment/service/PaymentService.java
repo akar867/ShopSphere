@@ -1,6 +1,7 @@
 package com.example.ecommerce.payment.service;
 
 import com.example.ecommerce.payment.client.OrderClient;
+import com.example.ecommerce.payment.config.PaymentProperties;
 import com.example.ecommerce.payment.domain.PaymentEntity;
 import com.example.ecommerce.payment.domain.PaymentStatus;
 import com.example.ecommerce.payment.dto.CreatePaymentIntentRequest;
@@ -8,7 +9,11 @@ import com.example.ecommerce.payment.dto.PaymentResponse;
 import com.example.ecommerce.payment.exception.BadRequestException;
 import com.example.ecommerce.payment.exception.NotFoundException;
 import com.example.ecommerce.payment.gateway.PaymentGateway;
+import com.example.ecommerce.payment.gateway.PaymentGatewayRegistry;
 import com.example.ecommerce.payment.repo.PaymentRepository;
+import com.stripe.StripeClient;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
 import java.util.Locale;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,21 +21,34 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class PaymentService {
   private final PaymentRepository paymentRepository;
-  private final PaymentGateway paymentGateway;
+  private final PaymentGatewayRegistry gatewayRegistry;
+  private final PaymentProperties paymentProperties;
   private final OrderClient orderClient;
 
-  public PaymentService(PaymentRepository paymentRepository, PaymentGateway paymentGateway, OrderClient orderClient) {
+  public PaymentService(
+      PaymentRepository paymentRepository,
+      PaymentGatewayRegistry gatewayRegistry,
+      PaymentProperties paymentProperties,
+      OrderClient orderClient
+  ) {
     this.paymentRepository = paymentRepository;
-    this.paymentGateway = paymentGateway;
+    this.gatewayRegistry = gatewayRegistry;
+    this.paymentProperties = paymentProperties;
     this.orderClient = orderClient;
   }
 
   @Transactional
   public PaymentResponse createIntent(long userId, String authorizationHeader, CreatePaymentIntentRequest req) {
-    String provider = (req.provider() == null || req.provider().isBlank()) ? paymentGateway.provider()
-        : req.provider().trim().toUpperCase(Locale.ROOT);
-    if (!paymentGateway.provider().equalsIgnoreCase(provider)) {
-      throw new BadRequestException("Unsupported payment provider: " + provider);
+    String provider =
+        (req.provider() == null || req.provider().isBlank())
+            ? paymentProperties.getDefaultProvider()
+            : req.provider().trim().toUpperCase(Locale.ROOT);
+
+    PaymentGateway gateway;
+    try {
+      gateway = gatewayRegistry.require(provider);
+    } catch (IllegalArgumentException ex) {
+      throw new BadRequestException(ex.getMessage());
     }
 
     OrderClient.OrderSnapshot order = orderClient.getOrder(req.orderId(), authorizationHeader);
@@ -42,13 +60,13 @@ public class PaymentService {
     }
 
     PaymentGateway.CreateIntentResult intent =
-        paymentGateway.createIntent(order.totalAmount(), order.currency(), order.id());
+        gateway.createIntent(order.totalAmount(), order.currency(), order.id());
 
     PaymentEntity entity =
         new PaymentEntity(
             order.id(),
             userId,
-            paymentGateway.provider(),
+            gateway.provider(),
             order.totalAmount(),
             order.currency(),
             intent.providerPaymentId(),
@@ -86,8 +104,31 @@ public class PaymentService {
       return toDto(p);
     }
 
-    p.setStatus(success ? PaymentStatus.SUCCEEDED : PaymentStatus.FAILED);
+    if ("STRIPE".equalsIgnoreCase(p.getProvider())) {
+      p.setStatus(fetchStripeStatus(p.getProviderPaymentId()));
+    } else {
+      // DUMMY provider uses explicit success flag.
+      p.setStatus(success ? PaymentStatus.SUCCEEDED : PaymentStatus.FAILED);
+    }
     return toDto(paymentRepository.save(p));
+  }
+
+  private PaymentStatus fetchStripeStatus(String paymentIntentId) {
+    String secretKey = paymentProperties.getStripe().getSecretKey();
+    if (secretKey == null || secretKey.isBlank()) {
+      throw new BadRequestException("Stripe is not configured (missing STRIPE_SECRET_KEY)");
+    }
+    StripeClient client = new StripeClient(secretKey);
+    try {
+      PaymentIntent intent = client.paymentIntents().retrieve(paymentIntentId);
+      return switch (intent.getStatus()) {
+        case "succeeded" -> PaymentStatus.SUCCEEDED;
+        case "canceled", "requires_payment_method" -> PaymentStatus.FAILED;
+        default -> PaymentStatus.INITIATED;
+      };
+    } catch (StripeException ex) {
+      throw new BadRequestException("Stripe error: " + ex.getMessage());
+    }
   }
 
   private static PaymentResponse toDto(PaymentEntity p) {

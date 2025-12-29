@@ -2,6 +2,8 @@
 /workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/api/ApiError.java
 /workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/api/GlobalExceptionHandler.java
 /workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/client/OrderClient.java
+/workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/config/PaymentConfig.java
+/workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/config/PaymentProperties.java
 /workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/config/SecurityConfig.java
 /workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/domain/PaymentEntity.java
 /workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/domain/PaymentStatus.java
@@ -12,6 +14,8 @@
 /workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/exception/NotFoundException.java
 /workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/gateway/DummyPaymentGateway.java
 /workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/gateway/PaymentGateway.java
+/workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/gateway/PaymentGatewayRegistry.java
+/workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/gateway/StripePaymentGateway.java
 /workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/repo/PaymentRepository.java
 /workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/service/PaymentService.java
 /workspace/backend/services/payment-service/src/main/java/com/example/ecommerce/payment/web/PaymentController.java

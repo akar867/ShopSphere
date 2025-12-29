@@ -30,7 +30,7 @@ public class PaymentController {
 
   /**
    * Creates a payment intent for the given order (order must belong to the logged-in user).
-   * For demo, the only provider is DUMMY.
+   * Providers: DUMMY, STRIPE (if configured).
    */
   @PostMapping("/intent")
   @ResponseStatus(HttpStatus.CREATED)
@@ -53,8 +53,9 @@ public class PaymentController {
   }
 
   /**
-   * Simulates a payment gateway callback/confirmation.
-   * Frontend calls this to mark payment SUCCEEDED/FAILED, then calls order-service mark-paid if succeeded.
+   * Confirms a payment:
+   * - DUMMY: uses request body success flag
+   * - STRIPE: refreshes status from Stripe PaymentIntent
    */
   @PostMapping("/{paymentId}/confirm")
   public PaymentResponse confirm(

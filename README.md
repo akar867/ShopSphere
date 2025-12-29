@@ -218,3 +218,42 @@ Admin is required for product create/update endpoints.
 - Payment gateway is **simulated** (`DUMMY`). The architecture is set up so a real provider (Stripe/Razorpay/etc.) can be added behind the `PaymentGateway` interface.
 - In real production systems, order state changes after payment are typically driven by **webhooks** from the payment provider. Here we keep it demo-friendly and explicit.
 
+---
+
+## Admin UI (Product CRUD)
+
+Login as the seeded admin user:
+
+- **Admin**: `admin@example.com` / `Admin@123`
+
+Then open the admin screen:
+
+- `http://localhost:5173/admin/products`
+
+From there you can:
+- create a product
+- edit a product
+
+These screens call product-service endpoints protected by `ROLE_ADMIN`.
+
+---
+
+## Stripe integration (real payment provider)
+
+Payment-service now supports provider `STRIPE` in addition to `DUMMY`.
+
+### Backend env vars
+
+Set these for `payment-service`:
+
+- `STRIPE_SECRET_KEY` (required for Stripe)
+- `PAYMENT_DEFAULT_PROVIDER` (optional, `DUMMY` by default; set to `STRIPE` if you want Stripe as default)
+- `STRIPE_WEBHOOK_SECRET` (optional; webhook endpoint not required for basic intent creation)
+
+### How it works (backend)
+
+- `POST /api/payments/intent` with `{ "orderId": 123, "provider": "STRIPE" }`
+  - creates a Stripe PaymentIntent and returns `clientSecret`
+- `POST /api/payments/{paymentId}/confirm`
+  - for Stripe payments, this refreshes the status from Stripe (by PaymentIntent id)
+

@@ -13,12 +13,15 @@ import {
 import { Outlet, useNavigate } from 'react-router-dom'
 import { authStore } from '../../features/auth/authStore'
 import { cartStore } from '../../features/cart/cartStore'
+import { useMe } from '../../features/auth/useMe'
 
 export function AppLayout() {
   const nav = useNavigate()
   const token = authStore((s) => s.token)
   const logout = authStore((s) => s.logout)
   const cartCount = cartStore((s) => s.items.reduce((sum, x) => sum + x.quantity, 0))
+  const me = useMe()
+  const isAdmin = me.data?.role === 'ADMIN'
 
   return (
     <Box sx={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -45,6 +48,7 @@ export function AppLayout() {
               <Button onClick={() => nav('/orders')} disabled={!token}>
                 Orders
               </Button>
+              {isAdmin ? <Button onClick={() => nav('/admin/products')}>Admin</Button> : null}
 
               {token ? (
                 <Button color="inherit" onClick={() => { logout(); nav('/') }}>
