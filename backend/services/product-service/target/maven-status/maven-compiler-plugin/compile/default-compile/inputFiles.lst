@@ -1,0 +1,13 @@
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/ProductServiceApplication.java
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/api/ApiError.java
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/api/GlobalExceptionHandler.java
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/bootstrap/DataInitializer.java
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/config/SecurityConfig.java
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/domain/Product.java
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/dto/PageResponse.java
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/dto/ProductResponse.java
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/dto/UpsertProductRequest.java
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/exception/NotFoundException.java
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/repo/ProductRepository.java
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/service/ProductService.java
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/web/ProductController.java

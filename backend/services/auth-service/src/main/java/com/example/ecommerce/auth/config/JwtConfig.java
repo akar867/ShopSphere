@@ -2,6 +2,11 @@ package com.example.ecommerce.auth.config;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.OctetSequenceKey;
+import com.nimbusds.jose.proc.SecurityContext;
+import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
+import com.nimbusds.jose.jwk.source.JWKSource;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,8 +33,9 @@ public class JwtConfig {
 
   @Bean
   JwtEncoder jwtEncoder(SecretKey jwtSecretKey) {
-    // NimbusJwtEncoder wants a JWKSource; Spring provides a convenience for symmetric keys.
-    return new NimbusJwtEncoder(new org.springframework.security.oauth2.jwt.ImmutableSecret<>(jwtSecretKey));
+    OctetSequenceKey jwk = new OctetSequenceKey.Builder(jwtSecretKey).keyID("ecommerce-demo").build();
+    JWKSource<SecurityContext> jwkSource = new ImmutableJWKSet<>(new JWKSet(jwk));
+    return new NimbusJwtEncoder(jwkSource);
   }
 }
 

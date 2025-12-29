@@ -1,0 +1,115 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: ecommerce-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bootstrap
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./backend/platform/mysql/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-proot"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  auth-service:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        SERVICE: auth-service
+    environment:
+      AUTH_DB_URL: jdbc:mysql://mysql:3306/auth_db?useSSL=false&allowPublicKeyRetrieval=true
+      AUTH_DB_USER: app
+      AUTH_DB_PASSWORD: app
+      JWT_SECRET: change-me-super-secret-demo-key-change-me
+    ports:
+      - "8081:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  product-service:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        SERVICE: product-service
+    environment:
+      PRODUCT_DB_URL: jdbc:mysql://mysql:3306/product_db?useSSL=false&allowPublicKeyRetrieval=true
+      PRODUCT_DB_USER: app
+      PRODUCT_DB_PASSWORD: app
+      JWT_SECRET: change-me-super-secret-demo-key-change-me
+    ports:
+      - "8082:8082"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  order-service:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        SERVICE: order-service
+    environment:
+      ORDER_DB_URL: jdbc:mysql://mysql:3306/order_db?useSSL=false&allowPublicKeyRetrieval=true
+      ORDER_DB_USER: app
+      ORDER_DB_PASSWORD: app
+      JWT_SECRET: change-me-super-secret-demo-key-change-me
+      PRODUCT_SERVICE_URL: http://product-service:8082
+    ports:
+      - "8083:8083"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      product-service:
+        condition: service_started
+
+  payment-service:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        SERVICE: payment-service
+    environment:
+      PAYMENT_DB_URL: jdbc:mysql://mysql:3306/payment_db?useSSL=false&allowPublicKeyRetrieval=true
+      PAYMENT_DB_USER: app
+      PAYMENT_DB_PASSWORD: app
+      JWT_SECRET: change-me-super-secret-demo-key-change-me
+      ORDER_SERVICE_URL: http://order-service:8083
+    ports:
+      - "8084:8084"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      order-service:
+        condition: service_started
+
+  api-gateway:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        SERVICE: api-gateway
+    environment:
+      JWT_SECRET: change-me-super-secret-demo-key-change-me
+      AUTH_SERVICE_URL: http://auth-service:8081
+      PRODUCT_SERVICE_URL: http://product-service:8082
+      ORDER_SERVICE_URL: http://order-service:8083
+      PAYMENT_SERVICE_URL: http://payment-service:8084
+    ports:
+      - "8080:8080"
+    depends_on:
+      auth-service:
+        condition: service_started
+      product-service:
+        condition: service_started
+      order-service:
+        condition: service_started
+      payment-service:
+        condition: service_started
+
