@@ -23,7 +23,14 @@ public class GlobalExceptionHandler {
             .map(GlobalExceptionHandler::toViolation)
             .collect(Collectors.toList());
 
-    return build(HttpStatus.BAD_REQUEST, "Validation failed", request, fields);
+    String msg =
+        fields.isEmpty()
+            ? "Validation failed"
+            : fields.stream()
+                .map(v -> v.field() + ": " + v.message())
+                .collect(Collectors.joining("; "));
+
+    return build(HttpStatus.BAD_REQUEST, msg, request, fields);
   }
 
   @ExceptionHandler(BadRequestException.class)

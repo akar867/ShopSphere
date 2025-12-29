@@ -12,6 +12,7 @@ import {
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { getApiErrorMessage } from '../../../shared/api/error'
 import { register } from '../api'
 
 export function RegisterPage() {
@@ -40,7 +41,9 @@ export function RegisterPage() {
 
             {mutation.isError ? (
               <Alert severity="error">
-                {(mutation.error as Error).message || 'Registration failed'}
+                <span style={{ whiteSpace: 'pre-line' }}>
+                  {getApiErrorMessage(mutation.error)}
+                </span>
               </Alert>
             ) : null}
 
@@ -56,6 +59,7 @@ export function RegisterPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="new-password"
+              helperText="Must be at least 8 characters."
             />
 
             <Button

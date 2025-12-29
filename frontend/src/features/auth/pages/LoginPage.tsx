@@ -12,6 +12,7 @@ import {
 import { useMutation } from '@tanstack/react-query'
 import { useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { getApiErrorMessage } from '../../../shared/api/error'
 import { login } from '../api'
 import { authStore } from '../authStore'
 
@@ -48,7 +49,9 @@ export function LoginPage() {
 
             {mutation.isError ? (
               <Alert severity="error">
-                {(mutation.error as Error).message || 'Login failed'}
+                <span style={{ whiteSpace: 'pre-line' }}>
+                  {getApiErrorMessage(mutation.error)}
+                </span>
               </Alert>
             ) : null}
 
