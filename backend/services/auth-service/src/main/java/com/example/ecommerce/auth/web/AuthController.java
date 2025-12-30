@@ -36,7 +36,12 @@ public class AuthController {
 
   @PostMapping("/login")
   public AuthResponse login(@Valid @RequestBody LoginRequest req) {
-    return authService.login(req);
+	  try {
+	        return authService.login(req);
+	    } catch (Exception e) {
+	        e.printStackTrace(); 
+	        throw e; 
+	    }
   }
 
   @GetMapping("/me")
