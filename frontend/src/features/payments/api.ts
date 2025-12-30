@@ -14,10 +14,10 @@ export type Payment = {
   updatedAt: string
 }
 
-export async function createPaymentIntent(orderId: number) {
+export async function createPaymentIntent(orderId: number, provider: 'DUMMY' | 'STRIPE' = 'DUMMY') {
   const res = await http.post<Payment>('/api/payments/intent', {
     orderId,
-    provider: 'DUMMY',
+    provider,
   })
   return res.data
 }

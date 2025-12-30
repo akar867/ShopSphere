@@ -242,6 +242,12 @@ These screens call product-service endpoints protected by `ROLE_ADMIN`.
 
 Payment-service now supports provider `STRIPE` in addition to `DUMMY`.
 
+### Frontend env vars
+
+Set this in the frontend (see `frontend/.env.example`):
+
+- `VITE_STRIPE_PUBLISHABLE_KEY` (required to show the Stripe card form)
+
 ### Backend env vars
 
 Set these for `payment-service`:
@@ -256,4 +262,14 @@ Set these for `payment-service`:
   - creates a Stripe PaymentIntent and returns `clientSecret`
 - `POST /api/payments/{paymentId}/confirm`
   - for Stripe payments, this refreshes the status from Stripe (by PaymentIntent id)
+
+### How it works (frontend checkout)
+
+At checkout you can select **Stripe** as the payment method:
+
+1. UI creates an order: `POST /api/orders`
+2. UI creates Stripe payment intent: `POST /api/payments/intent` with provider `STRIPE` → receives `clientSecret`
+3. UI renders Stripe **PaymentElement** and calls `stripe.confirmPayment(...)`
+4. UI calls `POST /api/payments/{paymentId}/confirm` to sync payment status from Stripe
+5. If succeeded, UI calls `POST /api/orders/{orderId}/mark-paid`
 
