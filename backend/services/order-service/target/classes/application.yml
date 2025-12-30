@@ -6,8 +6,8 @@ spring:
     name: order-service
   datasource:
     url: ${ORDER_DB_URL:jdbc:mysql://localhost:3306/order_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true}
-    username: ${ORDER_DB_USER:app}
-    password: ${ORDER_DB_PASSWORD:app}
+    username: ${ORDER_DB_USER:root}
+    password: ${ORDER_DB_PASSWORD:root}
   jpa:
     hibernate:
       ddl-auto: update
