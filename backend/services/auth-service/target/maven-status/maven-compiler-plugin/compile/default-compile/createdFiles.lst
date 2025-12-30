@@ -7,13 +7,14 @@ com/example/ecommerce/auth/api/ApiError.class
 com/example/ecommerce/auth/dto/RegisterRequest.class
 com/example/ecommerce/auth/service/AuthService.class
 com/example/ecommerce/auth/bootstrap/DataInitializer.class
-com/example/ecommerce/auth/config/JwtConfig.class
+com/example/ecommerce/auth/config/JwtKeyConfig.class
 com/example/ecommerce/auth/api/ApiError$FieldViolation.class
 com/example/ecommerce/auth/dto/AuthResponse.class
 com/example/ecommerce/auth/config/SecurityConfig.class
 com/example/ecommerce/auth/service/JwtService.class
 com/example/ecommerce/auth/dto/MeResponse.class
 com/example/ecommerce/auth/exception/UnauthorizedException.class
+com/example/ecommerce/auth/config/JjwtJwtDecoder.class
 com/example/ecommerce/auth/domain/Role.class
 com/example/ecommerce/auth/repo/UserRepository.class
 com/example/ecommerce/auth/AuthServiceApplication.class

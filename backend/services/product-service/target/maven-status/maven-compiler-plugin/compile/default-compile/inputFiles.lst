@@ -2,6 +2,7 @@
 /workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/api/ApiError.java
 /workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/api/GlobalExceptionHandler.java
 /workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/bootstrap/DataInitializer.java
+/workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/config/JjwtJwtDecoder.java
 /workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/config/SecurityConfig.java
 /workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/domain/Product.java
 /workspace/backend/services/product-service/src/main/java/com/example/ecommerce/product/dto/PageResponse.java

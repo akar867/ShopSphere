@@ -10,6 +10,7 @@ com/example/ecommerce/payment/domain/PaymentEntity.class
 com/example/ecommerce/payment/gateway/PaymentGatewayRegistry.class
 com/example/ecommerce/payment/config/PaymentProperties.class
 com/example/ecommerce/payment/gateway/PaymentGateway.class
+com/example/ecommerce/payment/config/JjwtJwtDecoder.class
 com/example/ecommerce/payment/client/OrderClient.class
 com/example/ecommerce/payment/api/GlobalExceptionHandler.class
 com/example/ecommerce/payment/dto/CreatePaymentIntentRequest.class

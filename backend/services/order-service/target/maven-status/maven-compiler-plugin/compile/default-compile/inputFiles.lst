@@ -2,6 +2,7 @@
 /workspace/backend/services/order-service/src/main/java/com/example/ecommerce/order/api/ApiError.java
 /workspace/backend/services/order-service/src/main/java/com/example/ecommerce/order/api/GlobalExceptionHandler.java
 /workspace/backend/services/order-service/src/main/java/com/example/ecommerce/order/client/ProductClient.java
+/workspace/backend/services/order-service/src/main/java/com/example/ecommerce/order/config/JjwtJwtDecoder.java
 /workspace/backend/services/order-service/src/main/java/com/example/ecommerce/order/config/SecurityConfig.java
 /workspace/backend/services/order-service/src/main/java/com/example/ecommerce/order/domain/OrderEntity.java
 /workspace/backend/services/order-service/src/main/java/com/example/ecommerce/order/domain/OrderItemEntity.java

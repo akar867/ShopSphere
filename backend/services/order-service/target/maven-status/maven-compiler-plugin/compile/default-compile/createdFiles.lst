@@ -4,6 +4,7 @@ com/example/ecommerce/order/dto/CreateOrderItemRequest.class
 com/example/ecommerce/order/config/SecurityConfig.class
 com/example/ecommerce/order/dto/OrderResponse.class
 com/example/ecommerce/order/api/GlobalExceptionHandler.class
+com/example/ecommerce/order/config/JjwtJwtDecoder.class
 com/example/ecommerce/order/exception/BadRequestException.class
 com/example/ecommerce/order/client/ProductClient$ProductClientException.class
 com/example/ecommerce/order/exception/NotFoundException.class

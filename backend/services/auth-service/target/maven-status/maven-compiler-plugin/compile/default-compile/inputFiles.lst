@@ -2,7 +2,8 @@
 /workspace/backend/services/auth-service/src/main/java/com/example/ecommerce/auth/api/ApiError.java
 /workspace/backend/services/auth-service/src/main/java/com/example/ecommerce/auth/api/GlobalExceptionHandler.java
 /workspace/backend/services/auth-service/src/main/java/com/example/ecommerce/auth/bootstrap/DataInitializer.java
-/workspace/backend/services/auth-service/src/main/java/com/example/ecommerce/auth/config/JwtConfig.java
+/workspace/backend/services/auth-service/src/main/java/com/example/ecommerce/auth/config/JjwtJwtDecoder.java
+/workspace/backend/services/auth-service/src/main/java/com/example/ecommerce/auth/config/JwtKeyConfig.java
 /workspace/backend/services/auth-service/src/main/java/com/example/ecommerce/auth/config/JwtProperties.java
 /workspace/backend/services/auth-service/src/main/java/com/example/ecommerce/auth/config/SecurityConfig.java
 /workspace/backend/services/auth-service/src/main/java/com/example/ecommerce/auth/domain/AppUser.java

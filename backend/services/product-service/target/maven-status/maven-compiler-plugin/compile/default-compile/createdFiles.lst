@@ -12,3 +12,4 @@ com/example/ecommerce/product/repo/ProductRepository.class
 com/example/ecommerce/product/exception/NotFoundException.class
 com/example/ecommerce/product/web/ProductController.class
 com/example/ecommerce/product/ProductServiceApplication.class
+com/example/ecommerce/product/config/JjwtJwtDecoder.class
