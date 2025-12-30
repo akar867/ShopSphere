@@ -1,0 +1,3 @@
+# Keep root ignore minimal; service-specific ignores live in backend/ and frontend/
+.DS_Store
+*.log
