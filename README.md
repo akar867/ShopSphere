@@ -1,6 +1,6 @@
 ## ShopSphere — E‑Commerce Microservices Demo (Spring Boot + MySQL + React)
 
-### What you get (in plain English)
+### What you get 
 
 This project is a **demo online shop**:
 
