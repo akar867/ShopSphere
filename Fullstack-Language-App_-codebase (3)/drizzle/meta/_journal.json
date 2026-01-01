@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1758610381774,
+      "tag": "0000_lean_zarek",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1758610965779,
+      "tag": "0001_small_vindicator",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1758676365135,
+      "tag": "0002_absurd_justice",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1761019855437,
+      "tag": "0003_nebulous_nick_fury",
+      "breakpoints": true
+    }
+  ]
+}
