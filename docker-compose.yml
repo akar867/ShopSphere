@@ -18,9 +18,7 @@ services:
   auth-service:
     build:
       context: ./backend
-      dockerfile: Dockerfile
-      args:
-        SERVICE: auth-service
+      dockerfile: services/auth-service/Dockerfile
     environment:
       AUTH_DB_URL: jdbc:mysql://mysql:3306/auth_db?useSSL=false&allowPublicKeyRetrieval=true
       AUTH_DB_USER: app
@@ -35,9 +33,7 @@ services:
   product-service:
     build:
       context: ./backend
-      dockerfile: Dockerfile
-      args:
-        SERVICE: product-service
+      dockerfile: services/product-service/Dockerfile
     environment:
       PRODUCT_DB_URL: jdbc:mysql://mysql:3306/product_db?useSSL=false&allowPublicKeyRetrieval=true
       PRODUCT_DB_USER: app
@@ -52,9 +48,7 @@ services:
   order-service:
     build:
       context: ./backend
-      dockerfile: Dockerfile
-      args:
-        SERVICE: order-service
+      dockerfile: services/order-service/Dockerfile
     environment:
       ORDER_DB_URL: jdbc:mysql://mysql:3306/order_db?useSSL=false&allowPublicKeyRetrieval=true
       ORDER_DB_USER: app
@@ -72,9 +66,7 @@ services:
   payment-service:
     build:
       context: ./backend
-      dockerfile: Dockerfile
-      args:
-        SERVICE: payment-service
+      dockerfile: services/payment-service/Dockerfile
     environment:
       PAYMENT_DB_URL: jdbc:mysql://mysql:3306/payment_db?useSSL=false&allowPublicKeyRetrieval=true
       PAYMENT_DB_USER: app
@@ -92,9 +84,7 @@ services:
   api-gateway:
     build:
       context: ./backend
-      dockerfile: Dockerfile
-      args:
-        SERVICE: api-gateway
+      dockerfile: services/api-gateway/Dockerfile
     environment:
       JWT_SECRET: change-me-super-secret-demo-key-change-me
       AUTH_SERVICE_URL: http://auth-service:8081
