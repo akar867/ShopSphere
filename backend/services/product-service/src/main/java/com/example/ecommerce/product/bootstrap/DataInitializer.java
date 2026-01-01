@@ -14,15 +14,16 @@ public class DataInitializer {
   private static final String HEADPHONES_OLD_IMAGE =
       "https://images.unsplash.com/photo-1518441902117-f0a1b3c5b8f8";
   private static final String HEADPHONES_IMAGE =
-      "https://images.unsplash.com/photo-1518441902117-f0a1b3c5b8f8?auto=format&fit=crop&w=1200&q=80";
-
+	      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e";
+	  
+  
   @Bean
   ApplicationRunner seedProducts(ProductRepository productRepository) {
     return args -> {
       // Fix broken image URLs even if DB already has data (common after first run).
       productRepository
           .findByNameIgnoreCase(HEADPHONES_NAME)
-          .filter(p -> p.getImageUrl() == null || p.getImageUrl().isBlank() || HEADPHONES_OLD_IMAGE.equals(p.getImageUrl()))
+          .filter(p -> !HEADPHONES_IMAGE.equals(p.getImageUrl()))
           .ifPresent(p -> {
             p.setImageUrl(HEADPHONES_IMAGE);
             productRepository.save(p);
@@ -65,7 +66,7 @@ public class DataInitializer {
               "Over-ear headphones with rich bass and long battery.",
               new BigDecimal("129.99"),
               40,
-              HEADPHONES_IMAGE
+              "https://images.unsplash.com/photo-1505740420928-5e560c06d30e"
           )
       );
     };

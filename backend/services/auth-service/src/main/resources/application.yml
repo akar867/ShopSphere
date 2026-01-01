@@ -8,6 +8,7 @@ spring:
     url: ${AUTH_DB_URL:jdbc:mysql://localhost:3306/auth_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true}
     username: ${AUTH_DB_USER:root}
     password: ${AUTH_DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -19,9 +20,8 @@ spring:
 app:
   security:
     jwt:
-      # For demo convenience only. In real deployments, ALWAYS set via env.
-      secret: ${JWT_SECRET:change-me-super-secret-demo-key-change-me}
-      issuer: ${JWT_ISSUER:ecommerce-demo}
+      secret: ${JWT_SECRET:kNf3s6Z1kF0Jq9wzXx+q0nA2p8bLzRkF4CkY0e6A9kM=}
+      issuer: ${JWT_ISSUER:ecommerce}
       access-token-ttl-minutes: ${JWT_TTL_MINUTES:120}
 
 management:

@@ -13,7 +13,6 @@ public class JwtKeyConfig {
 
   @Bean
   SecretKey jwtHmacKey(JwtProperties props) {
-    // Accept either raw text or base64; base64 is recommended.
     String secret = props.getSecret();
     byte[] keyBytes;
     try {

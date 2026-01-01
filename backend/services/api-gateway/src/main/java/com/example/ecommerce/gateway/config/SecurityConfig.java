@@ -45,7 +45,7 @@ public class SecurityConfig {
 
   @Bean
   ReactiveJwtDecoder reactiveJwtDecoder(@Value("${app.security.jwt.secret}") String secret) {
-    SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    SecretKey key = Keys.hmacShaKeyFor(io.jsonwebtoken.io.Decoders.BASE64.decode(secret));
     return token ->
         Mono.fromCallable(() -> decode(token, key))
             .onErrorMap(ex -> (ex instanceof JwtException) ? ex : new JwtException("Invalid JWT", ex));

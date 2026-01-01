@@ -70,7 +70,7 @@ spring:
 app:
   security:
     jwt:
-      secret: ${JWT_SECRET:change-me-super-secret-demo-key-change-me}
+      secret: ${JWT_SECRET:kNf3s6Z1kF0Jq9wzXx+q0nA2p8bLzRkF4CkY0e6A9kM=}
 
 springdoc:
   swagger-ui:

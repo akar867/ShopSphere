@@ -1,1 +1,0 @@
-ALTER TABLE `words` ADD `image_url` text;
