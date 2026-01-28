@@ -66,6 +66,16 @@ spring:
             - Path=/v3/api-docs/payments
           filters:
             - SetPath=/v3/api-docs
+        - id: shadowdeploy
+          uri: ${SHADOWDEPLOY_SERVICE_URL:http://localhost:8086}
+          predicates:
+            - Path=/api/shadowdeploy/**
+        - id: shadowdeploy-docs
+          uri: ${SHADOWDEPLOY_SERVICE_URL:http://localhost:8086}
+          predicates:
+            - Path=/v3/api-docs/shadowdeploy
+          filters:
+            - SetPath=/v3/api-docs
 
 app:
   security:
@@ -84,6 +94,8 @@ springdoc:
         url: /v3/api-docs/orders
       - name: payment-service
         url: /v3/api-docs/payments
+      - name: shadowdeploy-service
+        url: /v3/api-docs/shadowdeploy
   api-docs:
     path: /v3/api-docs
 

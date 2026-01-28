@@ -37,6 +37,7 @@ public class SecurityConfig {
             .pathMatchers("/actuator/**").permitAll()
             .pathMatchers("/api/auth/**").permitAll()
             .pathMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+            .pathMatchers("/api/shadowdeploy/**").permitAll()
             .anyExchange().authenticated()
         )
         .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))

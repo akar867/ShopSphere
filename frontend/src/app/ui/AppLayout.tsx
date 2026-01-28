@@ -1,27 +1,16 @@
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 import {
   AppBar,
-  Badge,
   Box,
   Button,
   Container,
-  IconButton,
   Stack,
   Toolbar,
   Typography,
 } from '@mui/material'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { authStore } from '../../features/auth/authStore'
-import { cartStore } from '../../features/cart/cartStore'
-import { useMe } from '../../features/auth/useMe'
 
 export function AppLayout() {
   const nav = useNavigate()
-  const token = authStore((s) => s.token)
-  const logout = authStore((s) => s.logout)
-  const cartCount = cartStore((s) => s.items.reduce((sum, x) => sum + x.quantity, 0))
-  const me = useMe()
-  const isAdmin = me.data?.role === 'ADMIN'
 
   return (
     <Box sx={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -38,33 +27,17 @@ export function AppLayout() {
               sx={{ cursor: 'pointer' }}
               onClick={() => nav('/')}
             >
-              ShopSphere
+              ShadowDeploy
             </Typography>
 
             <Box sx={{ flex: 1 }} />
 
             <Stack direction="row" spacing={1} alignItems="center">
-              <Button onClick={() => nav('/')}>Products</Button>
-              <Button onClick={() => nav('/orders')} disabled={!token}>
-                Orders
+              <Button onClick={() => nav('/')}>Dashboard</Button>
+              <Button onClick={() => nav('/runs')}>Runs</Button>
+              <Button variant="contained" onClick={() => nav('/runs/new')}>
+                New run
               </Button>
-              {isAdmin ? <Button onClick={() => nav('/admin/products')}>Admin</Button> : null}
-
-              {token ? (
-                <Button color="inherit" onClick={() => { logout(); nav('/') }}>
-                  Logout
-                </Button>
-              ) : (
-                <Button variant="contained" onClick={() => nav('/login')}>
-                  Login
-                </Button>
-              )}
-
-              <IconButton onClick={() => nav('/cart')} aria-label="cart">
-                <Badge color="primary" badgeContent={cartCount} showZero>
-                  <ShoppingCartOutlinedIcon />
-                </Badge>
-              </IconButton>
             </Stack>
           </Container>
         </Toolbar>
@@ -77,7 +50,7 @@ export function AppLayout() {
       <Box sx={{ py: 3, borderTop: '1px solid', borderColor: 'divider', bgcolor: 'background.paper' }}>
         <Container maxWidth="lg">
           <Typography variant="body2" color="text.secondary">
-            Demo e-commerce app • Spring Boot microservices • React UI
+            ShadowDeploy MVP • Spring Boot backend • React UI
           </Typography>
         </Container>
       </Box>

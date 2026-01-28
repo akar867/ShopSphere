@@ -1,3 +1,50 @@
+# ShadowDeploy MVP (Spring Boot + React)
+
+ShadowDeploy runs new code in parallel with production traffic, compares results, and highlights
+what will break before users see it. This repo now includes a ShadowDeploy MVP service and UI
+alongside the existing demo microservices.
+
+## ShadowDeploy MVP highlights
+
+- Shadow run management API (create runs, list runs, view diffs)
+- Diff findings for status, payload, latency, exceptions, and query changes
+- AI summary fields stored with each run and finding
+- React dashboard for recent runs, risk scores, and diff details
+
+## ShadowDeploy API (via gateway)
+
+- GET /api/shadowdeploy/summary
+- GET /api/shadowdeploy/runs
+- POST /api/shadowdeploy/runs
+- GET /api/shadowdeploy/runs/{id}
+- GET /api/shadowdeploy/runs/{id}/diffs
+- POST /api/shadowdeploy/runs/{id}/diffs
+
+## Run ShadowDeploy locally
+
+Backend (from backend/):
+
+```bash
+./mvnw -pl services/shadowdeploy-service spring-boot:run
+./mvnw -pl services/api-gateway spring-boot:run
+```
+
+Frontend (from frontend/):
+
+```bash
+npm install
+npm run dev
+```
+
+By default the UI expects the gateway at http://localhost:8080.
+Override with frontend/.env:
+
+```bash
+VITE_API_BASE_URL=http://localhost:8080
+```
+
+---
+
 ## ShopSphere — E‑Commerce Microservices Demo (Spring Boot + MySQL + React)
 
 ### What you get 
