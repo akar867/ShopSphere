@@ -2,7 +2,7 @@
 
 ### What you get 
 
-This project is a **demo online shop**:
+This project is a **online shop**:
 
 - You can **browse products**, **search**, **sort**, and **paginate** through the catalog
 - You can **add products to a cart**
