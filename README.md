@@ -215,7 +215,7 @@ Admin is required for product create/update endpoints.
 
 ## Notes / limitations (demo choices)
 
-- Payment gateway is **simulated** (`DUMMY`). The architecture is set up so a real provider (Stripe/Razorpay/etc.) can be added behind the `PaymentGateway` interface.
+- Payment gateway is **simulated** (`DUMMY`).
 - In real production systems, order state changes after payment are typically driven by **webhooks** from the payment provider. Here we keep it demo-friendly and explicit.
 
 ---
