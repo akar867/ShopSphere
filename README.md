@@ -240,7 +240,7 @@ These screens call product-service endpoints protected by `ROLE_ADMIN`.
 
 ## Stripe integration (real payment provider)
 
-Payment-service now supports provider `STRIPE` in addition to `DUMMY`.
+Payment-service also supports provider `STRIPE` in addition to `DUMMY`.
 
 ### Frontend env vars
 
